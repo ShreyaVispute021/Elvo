@@ -1,0 +1,21 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-5">
+    <h2>Add Investment</h2>
+    <form action="/portfolio" method="POST">
+        <div class="mb-3">
+            <label class="form-label">Stock Name</label>
+            <input type="text" name="stockName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="number" name="quantity" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Buy Price</label>
+            <input type="number" name="buyPrice" class="form-control" required>
+        </div>
+        <button class="btn btn-primary">
+            Add Investment
+        </button>
+    </form>
+</div>

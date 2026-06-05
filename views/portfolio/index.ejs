@@ -1,0 +1,27 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between">
+        <h2>My Portfolio</h2>
+        <a href="/portfolio/new" class="btn btn-success">
+           Add Investment
+        </a>
+    </div>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Stock</th>
+                <th>Quantity</th>
+                <th>Buy Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% investments.forEach(inv => { %>
+                <tr>
+                    <td><%= inv.stockName %></td>
+                    <td><%= inv.quantity %></td>
+                    <td>₹<%= inv.buyPrice %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
