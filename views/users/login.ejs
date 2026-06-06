@@ -1,21 +1,66 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="container mt-5">
+<div class="container py-5">
+
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2 class="mb-4 text-center">Log In Account</h2>
-            
-            <form action="/login" method="POST">
-                <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" required>
+
+        <div class="col-lg-5">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+                        <i class="bi bi-person-circle display-3 text-primary"></i>
+
+                        <h2 class="fw-bold mt-3">
+                            Welcome Back
+                        </h2>
+
+                        <p class="text-muted">
+                            Login to your ELVO account
+                        </p>
+                    </div>
+
+                    <form action="/login" method="POST">
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control form-control-lg"
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control form-control-lg"
+                                required>
+                        </div>
+
+                        <button
+                            class="btn btn-primary btn-lg w-100">
+                            Login
+                        </button>
+
+                    </form>
+
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Log In</button>
-            </form>
+
+            </div>
+
         </div>
+
     </div>
+
 </div>

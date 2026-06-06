@@ -1,27 +1,68 @@
 <% layout("/layouts/boilerplate") %>
-<div class="container mt-5">
-    <div class="d-flex justify-content-between">
-        <h2>My Portfolio</h2>
-        <a href="/portfolio/new" class="btn btn-success">
-           Add Investment
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">My Portfolio</h2>
+            <p class="text-muted mb-0">
+                Manage and track your investments
+            </p>
+        </div>
+
+        <a href="/portfolio/new" class="btn btn-success px-4">
+            <i class="bi bi-plus-circle"></i>
+            Add Investment
         </a>
     </div>
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th>Stock</th>
-                <th>Quantity</th>
-                <th>Buy Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% investments.forEach(inv => { %>
-                <tr>
-                    <td><%= inv.stockName %></td>
-                    <td><%= inv.quantity %></td>
-                    <td>₹<%= inv.buyPrice %></td>
-                </tr>
-            <% }) %>
-        </tbody>
-    </table>
+
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+                        <th>Stock</th>
+                        <th>Quantity</th>
+                        <th>Buy Price</th>
+                        <th>Total Value</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <% investments.forEach(inv => { %>
+
+                        <tr>
+
+                            <td>
+                                <span class="badge bg-primary fs-6 px-3 py-2">
+                                    <%= inv.stockName %>
+                                </span>
+                            </td>
+
+                            <td>
+                                <strong><%= inv.quantity %></strong>
+                            </td>
+
+                            <td>
+                                ₹<%= inv.buyPrice %>
+                            </td>
+
+                            <td class="fw-bold text-success">
+                                ₹<%= inv.quantity * inv.buyPrice %>
+                            </td>
+
+                        </tr>
+
+                    <% }) %>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
 </div>
