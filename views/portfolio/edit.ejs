@@ -1,0 +1,83 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-body p-5">
+
+                    <h2 class="fw-bold text-center mb-4">
+                        Edit Investment
+                    </h2>
+
+                    <form
+                        action="/portfolio/<%= investment._id %>?_method=PUT"
+                        method="POST">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Stock Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="stockName"
+                                value="<%= investment.stockName %>"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Quantity
+                            </label>
+
+                            <input
+                                type="number"
+                                name="quantity"
+                                value="<%= investment.quantity %>"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Buy Price
+                            </label>
+
+                            <input
+                                type="number"
+                                name="buyPrice"
+                                value="<%= investment.buyPrice %>"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+                        <button
+                            class="btn btn-warning w-100">
+
+                            Update Investment
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

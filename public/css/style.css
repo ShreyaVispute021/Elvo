@@ -107,3 +107,11 @@ footer{
     color:var(--primary);
     font-weight:800;
 }
+
+.summary-card{
+    transition: all .3s ease;
+}
+
+.summary-card:hover{
+    transform: translateY(-5px);
+}

@@ -49,8 +49,10 @@ router.get("/dashboard", (req, res) => {
     if(!req.session.userId) {
         return res.redirect("/login");
     }
+    const user = await User.findById(req.session.userId);
     res.render("users/dashboard", {
-        username: req.session.username
+        username: req.session.username,
+        walletBalance: user.walletBalance
     });
 });
 

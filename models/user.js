@@ -14,10 +14,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    cretedAt: {
+    walletBalance: { 
+        type: Number, 
+        default: 1000000 
+    },
+    createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", userSchema);

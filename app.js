@@ -3,11 +3,13 @@ const path = require("path");
 const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const methodOverride = require("method-override");
 // const MongoStore = require("connect-mongo");
 const app = express();
 
 const userRouter = require("./routes/user");
 const investmentRouter = require("./routes/investment");
+const watchlistRoutes = require("./routes/watchlist");
 
 main().then(() => console.log("Database Connected")).catch(err => console.log(err));
 
@@ -21,6 +23,7 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(methodOverride("_method"));
 
 const sessionOptions = {
     secret: "elvoSecretKey",
@@ -44,6 +47,7 @@ app.use((req, res, next) => {
 
 app.use("/", userRouter);
 app.use("/", investmentRouter);
+app.use("/", watchlistRoutes);
 
 app.get("/", (req, res) => {
     res.render("home");

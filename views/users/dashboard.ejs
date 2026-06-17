@@ -1,3 +1,12 @@
+<div class="mb-4">
+    <h1 class="fw-bold">
+        Welcome back, <%= username %> 👋
+    </h1>
+
+    <p class="text-muted">
+        Track your investments and grow your virtual portfolio.
+    </p>
+</div>
 <div class="row g-4">
 
 <div class="col-md-4">
@@ -22,7 +31,7 @@
             </small>
 
             <h2 class="fw-bold text-success">
-                ₹10,00,000
+                ₹<%= walletBalance.toLocaleString() %>
             </h2>
         </div>
     </div>
