@@ -1,0 +1,69 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">
+                Transaction History
+            </h2>
+            <p class="text-muted mb-0">
+                View all your portfolio activities
+            </p>
+        </div>
+    </div>
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-4">
+            <% if(transactions.length === 0) { %>
+                <div class="text-center py-5">
+                    <h4>No Transactions Yet</h4>
+                    <p class="text-muted">
+                        Add an investment to create your first transaction.
+                    </p>
+                </div>
+            <% } else { %>
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Stock</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% transactions.forEach(tx => { %>
+                            <tr>
+                                <td>
+                                    <% if(tx.type === "BUY") { %>
+                                        <span class="badge bg-success">
+                                            BUY
+                                        </span>
+                                    <% } else { %>
+                                        <span class="badge bg-danger">
+                                            SELL
+                                        </span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <%= tx.stockName %>
+                                    </strong>
+                                </td>
+                                <td>
+                                    <%= tx.quantity %>
+                                </td>
+                                <td>
+                                    ₹<%= tx.price %>
+                                </td>
+                                <td>
+                                    <%= tx.createdAt.toDateString() %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+    </div>
+</div>

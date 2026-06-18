@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user.js");
+const User = require("../models/user");
+const Investment = require("../models/investment");
+const Watchlist = require("../models/watchlist");
+const Transaction = require("../models/transaction");
 const bcrypt = require("bcryptjs");
 
 router.get("/register", (req,res) => {
@@ -45,14 +48,32 @@ router.post("/login", async(req, res) => {
     }
 });
 
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", async (req, res) => {
     if(!req.session.userId) {
         return res.redirect("/login");
     }
     const user = await User.findById(req.session.userId);
+    const investments = await Investment.find({
+        user: req.session.userId
+    });
+    const watchlist = await Watchlist.find({
+        user: req.session.userId
+    });
+    const recentTransactions = await Transaction.find({
+        user: req.session.userId
+    })
+    .sort({ createdAt: -1 })
+    .limit(5);
+    const portfolioValue = investments.reduce(
+        (sum, inv) => sum + inv.quantity * inv.buyPrice,
+        0
+    );
     res.render("users/dashboard", {
         username: req.session.username,
-        walletBalance: user.walletBalance
+        walletBalance: user.walletBalance,
+        portfolioValue,
+        watchlistCount: watchlist.length,
+        recentTransactions
     });
 });
 

@@ -115,3 +115,61 @@ footer{
 .summary-card:hover{
     transform: translateY(-5px);
 }
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card{
+    border: none;
+    border-radius: 20px;
+    transition: all .3s ease;
+}
+
+.dashboard-card:hover{
+    transform: translateY(-6px);
+}
+
+.wallet-card{
+    background: linear-gradient(135deg,#16a34a,#22c55e);
+    color:white;
+}
+
+.portfolio-card{
+    background: linear-gradient(135deg,#2563eb,#3b82f6);
+    color:white;
+}
+
+.watchlist-card{
+    background: linear-gradient(135deg,#7c3aed,#8b5cf6);
+    color:white;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:20px;
+    transition:all .3s ease;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-6px);
+}
+
+.portfolio-card{
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:white;
+}
+
+.wallet-card{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+    color:white;
+}
+
+.watchlist-card{
+    background:linear-gradient(135deg,#7c3aed,#8b5cf6);
+    color:white;
+}

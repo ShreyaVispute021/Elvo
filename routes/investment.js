@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Investment = require("../models/investment.js");
 const {isLoggedIn} = require("../middleware.js");
-
+const Transaction = require("../models/transaction");
 //get portfolio
 router.get("/portfolio", isLoggedIn, async (req, res) => {
     const investments = await Investment.find({
@@ -37,6 +37,13 @@ router.post("/portfolio", isLoggedIn, async (req, res) => {
         stockName, quantity, buyPrice, user: req.session.userId
     });
     await investment.save();
+    await Transaction.create({
+        stockName,
+        quantity,
+        price: buyPrice,
+        type: "BUY",
+        user: req.session.userId
+    });
     res.redirect("/portfolio");
 });
 
@@ -68,6 +75,15 @@ router.put("/portfolio/:id", isLoggedIn, async (req, res) => {
     req.flash("success", "Investment Updated");
     res.redirect("/portfolio");
 
+});
+
+router.get("/transactions", isLoggedIn, async (req, res) => {
+    const transactions = await Transaction
+        .find({ user: req.session.userId })
+        .sort({ createdAt: -1 });
+    res.render("transactions/index", {
+        transactions
+    });
 });
 
 module.exports = router;
