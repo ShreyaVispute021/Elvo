@@ -10,6 +10,7 @@ const app = express();
 const userRouter = require("./routes/user");
 const investmentRouter = require("./routes/investment");
 const watchlistRoutes = require("./routes/watchlist");
+const stockRoutes = require("./routes/stocks");
 
 main().then(() => console.log("Database Connected")).catch(err => console.log(err));
 
@@ -48,6 +49,7 @@ app.use((req, res, next) => {
 app.use("/", userRouter);
 app.use("/", investmentRouter);
 app.use("/", watchlistRoutes);
+app.use("/", stockRoutes);
 
 app.get("/", (req, res) => {
     res.render("home");

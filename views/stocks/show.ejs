@@ -1,0 +1,74 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="card-body p-5">
+    <h1 class="fw-bold">
+        <%= stock.longName %>
+    </h1>
+    <h2 class="text-success">
+        ₹<%= stock.regularMarketPrice %>
+    </h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                <strong>Day Change:</strong>
+                <%= stock.regularMarketChangePercent.toFixed(2) %>%
+            </p>
+            <p>
+                <strong>Previous Close:</strong>
+                ₹<%= stock.regularMarketPreviousClose %>
+            </p>
+            <p>
+                <strong>Market:</strong>
+                <%= stock.fullExchangeName %>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <strong>52 Week High:</strong>
+                ₹<%= stock.fiftyTwoWeekHigh %>
+            </p>
+            <p>
+                <strong>52 Week Low:</strong>
+                ₹<%= stock.fiftyTwoWeekLow %>
+            </p>
+            <p>
+                <strong>P/E Ratio:</strong>
+                <%= stock.trailingPE %>
+            </p>
+        </div>
+        <div class="card shadow-lg border-0 rounded-4 mt-4">
+            <div class="card-body">
+                <h4 class="mb-4">
+                    Price History
+                </h4>
+
+                <canvas id="stockChart"></canvas>
+            </div>
+        </div>
+        </div>
+            <a href="/<%= stock.symbol %>/buy" class="btn btn-success btn-lg">
+                Buy Stock
+            </a>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = <%- JSON.stringify(dates) %>;
+    const data = <%- JSON.stringify(prices) %>;
+    new Chart(
+        document.getElementById("stockChart"), {
+            type: "line",
+            data: {
+                labels,
+                datasets: [{
+                    label: "Stock Price",
+                    data,
+                    tension: 0.4,
+                    fill: false
+                }]
+            }
+        }
+    );
+</script>

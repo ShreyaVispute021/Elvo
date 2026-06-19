@@ -1,0 +1,94 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+
+    <h1 class="fw-bold mb-2">
+        Search Indian Stocks
+    </h1>
+
+    <p class="text-muted mb-4">
+        Track, analyze and trade Indian stocks
+    </p>
+
+    <form action="/stocks/result" method="GET">
+
+        <div class="input-group mb-4">
+
+            <input
+                type="text"
+                name="symbol"
+                class="form-control form-control-lg"
+                placeholder="TCS, SBI, HDFC, RELIANCE..."
+                required>
+
+            <button class="btn btn-primary">
+                Search
+            </button>
+
+        </div>
+
+    </form>
+
+    <h4 class="mb-3">
+        Popular Stocks
+    </h4>
+
+    <div class="row g-3">
+
+        <div class="col-md-3">
+            <a href="/stocks/result?symbol=TCS"
+               class="text-decoration-none">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5>TCS</h5>
+                        <small class="text-muted">
+                            Tata Consultancy Services
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a href="/stocks/result?symbol=INFY"
+               class="text-decoration-none">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5>INFY</h5>
+                        <small class="text-muted">
+                            Infosys
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a href="/stocks/result?symbol=RELIANCE"
+               class="text-decoration-none">
+                <div class="card-body card shadow-sm border-0">
+                    <h5>RELIANCE</h5>
+                    <small class="text-muted">
+                        Reliance Industries
+                    </small>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a href="/stocks/result?symbol=SBI"
+               class="text-decoration-none">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5>SBI</h5>
+                        <small class="text-muted">
+                            State Bank of India
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+</div>

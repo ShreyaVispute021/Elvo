@@ -1,0 +1,31 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+    <div class="card shadow-lg p-4">
+        <h2>
+            Buy <%= stock.longName %>
+        </h2>
+        <h3 class="text-success">
+            ₹<%= stock.regularMarketPrice %>
+        </h3>
+        <form
+            action="/<%= stock.symbol %>/buy"
+            method="POST">
+            <div class="mb-3">
+                <label class="form-label">
+                    Quantity
+                </label>
+                <input
+                    type="number"
+                    min="1"
+                    name="quantity"
+                    class="form-control"
+                    required>
+            </div>
+            <button
+                class="btn btn-success">
+                Confirm Purchase
+            </button>
+        </form>
+    </div>
+</div>
