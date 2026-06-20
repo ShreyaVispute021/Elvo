@@ -3,25 +3,52 @@ const router = express.Router();
 const Investment = require("../models/investment.js");
 const {isLoggedIn} = require("../middleware.js");
 const Transaction = require("../models/transaction");
+const YahooFinance = require("yahoo-finance2").default;
+const yahooFinance = new YahooFinance();
+
 //get portfolio
 router.get("/portfolio", isLoggedIn, async (req, res) => {
-    const investments = await Investment.find({
+    let investments = await Investment.find({
         user: req.session.userId
     });
+    let totalCurrentValue = 0;
+    let totalInvested = 0;
+    let totalPnL = 0;
+    for (let inv of investments) {
+        try {
+            const stock =
+                await yahooFinance.quote(
+                    inv.stockName
+                );
+            inv.currentPrice = stock.regularMarketPrice;
+            inv.currentValue = inv.quantity * inv.currentPrice;
+            inv.pnl = inv.currentValue - (inv.quantity * inv.buyPrice);
+            totalCurrentValue += inv.currentValue;
+            totalInvested += inv.quantity * inv.buyPrice;
+            totalPnL += inv.pnl;
+        } catch (err) {
+            console.log(
+                `Error fetching ${inv.stockName}`
+            );
+            inv.currentPrice = 0;
+            inv.currentValue = 0;
+            inv.pnl = 0;
+        }
+    }
     const totalHoldings = investments.length;
-    const totalShares = investments.reduce(
-        (sum, inv) => sum + inv.quantity,
-        0
-    );
-    const totalInvested = investments.reduce(
-        (sum, inv) => sum + (inv.quantity * inv.buyPrice),
-        0
-    );
+    const totalShares =
+        investments.reduce(
+            (sum, inv) =>
+                sum + inv.quantity,
+            0
+        );
     res.render("portfolio/index", {
         investments,
         totalHoldings,
         totalShares,
-        totalInvested
+        totalInvested,
+        totalCurrentValue,
+        totalPnL
     });
 });
 

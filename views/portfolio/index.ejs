@@ -48,6 +48,32 @@
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow rounded-4">
+            <div class="card-body text-center">
+                <h6 class="text-muted">
+                    Current Value
+                </h6>
+
+                <h2 class="fw-bold">
+                    ₹<%= totalCurrentValue.toLocaleString() %>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow rounded-4">
+            <div class="card-body text-center">
+                <h6 class="text-muted">
+                    Total P&L
+                </h6>
+
+                <h2 class="<%= totalPnL >= 0 ? 'text-success' : 'text-danger' %>">
+                    ₹<%= totalPnL.toFixed(2) %>
+                </h2>
+            </div>
+        </div>
+    </div>
 </div>
     <% if(investments.length === 0) { %>
     <div class="card shadow border-0 rounded-4">
@@ -73,7 +99,9 @@
                         <th>Stock</th>
                         <th>Quantity</th>
                         <th>Buy Price</th>
+                        <th>Current Price</th>
                         <th>Total Value</th>
+                        <th>P&L</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -89,19 +117,25 @@
                                 <strong><%= inv.quantity %></strong>
                             </td>
                             <td>
-                                ₹<%= inv.buyPrice %>
+                                ₹<%= inv.buyPrice.toFixed(2) %>
+                            </td>
+                            <td>
+                                ₹<%= inv.currentPrice.toFixed(2) %>
                             </td>
                             <td class="fw-bold text-success">
-                                ₹<%= inv.quantity * inv.buyPrice %>
+                                ₹<%= inv.currentValue.toFixed(2) %>
+                            </td>
+                            <td class="<%= inv.pnl >= 0 ? 'text-success' : 'text-danger' %> fw-bold">
+                                ₹<%= inv.pnl.toFixed(2) %>
                             </td>
                             <td class="d-flex gap-2">
-                                <a href="/portfolio/<%= inv._id %>/edit"
-                                class="btn btn-warning btn-sm">
+                                <a href="/stocks/<%= inv._id %>/sell" class="btn btn-danger btn-sm">
+                                    Sell
+                                </a>
+                                <a href="/portfolio/<%= inv._id %>/edit" class="btn btn-warning btn-sm">
                                     Edit
                                 </a>
-                                <form
-                                    action="/portfolio/<%= inv._id %>?_method=DELETE"
-                                    method="POST">
+                                <form action="/portfolio/<%= inv._id %>?_method=DELETE" method="POST">
                                     <button class="btn btn-danger btn-sm">
                                         Delete
                                     </button>

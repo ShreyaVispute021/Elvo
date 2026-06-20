@@ -91,14 +91,29 @@ router.post("/:symbol/buy", async (req, res) => {
         }
         user.walletBalance -= totalCost;
         await user.save();
-        const investment =
-            new Investment({
+        let investment =
+            await Investment.findOne({
                 stockName: stock.symbol,
-                quantity,
-                buyPrice: price,
                 user: user._id
             });
-        await investment.save();
+        if (investment) {
+            const totalOldValue = investment.quantity * investment.buyPrice;
+            const totalNewValue = quantity * price;
+            const totalShares = investment.quantity + quantity;
+            const avgPrice = (totalOldValue + totalNewValue) / totalShares;
+            investment.quantity = totalShares;
+            investment.buyPrice = avgPrice;
+            await investment.save();
+        } else {
+            investment =
+                new Investment({
+                    stockName: stock.symbol,
+                    quantity,
+                    buyPrice: price,
+                    user: user._id
+                });
+            await investment.save();
+        }
         const transaction =
             new Transaction({
                 stockName: stock.symbol,
@@ -112,6 +127,62 @@ router.post("/:symbol/buy", async (req, res) => {
     } catch(err) {
         console.log(err);
         res.send("Purchase Failed");
+    }
+});
+
+router.get("/stocks/:id/sell", async (req, res) => {
+    try {
+        const investment = await Investment.findById(req.params.id);
+        res.render("stocks/sell", {
+            investment
+        });
+    } catch (err) {
+        console.log(err);
+        res.send("Investment not found");
+    }
+});
+
+router.post("/stocks/:id/sell", async (req, res) => {
+    try {
+        const quantityToSell = Number(req.body.quantity);
+        const investment = await Investment.findById(req.params.id);
+        if (!investment) {
+            return res.send("Investment not found");
+        }
+        if (quantityToSell > investment.quantity) {
+            return res.send("Not enough shares");
+        }
+        const stock =
+            await yahooFinance.quote(
+                investment.stockName
+            );
+        const currentPrice = stock.regularMarketPrice;
+        const sellValue = quantityToSell * currentPrice;
+        const user =
+            await User.findById(
+                req.session.userId
+            );
+        user.walletBalance += sellValue;
+        await user.save();
+        investment.quantity -= quantityToSell;
+        if (investment.quantity === 0) {
+            await Investment.findByIdAndDelete(
+                investment._id
+            );
+        } else {
+            await investment.save();
+        }
+        await Transaction.create({
+            stockName: investment.stockName,
+            quantity: quantityToSell,
+            price: currentPrice,
+            type: "SELL",
+            user: user._id
+        });
+        res.redirect("/portfolio");
+    } catch (err) {
+        console.log(err);
+        res.send("Sell Failed");
     }
 });
 
