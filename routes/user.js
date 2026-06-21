@@ -5,6 +5,21 @@ const Investment = require("../models/investment");
 const Watchlist = require("../models/watchlist");
 const Transaction = require("../models/transaction");
 const bcrypt = require("bcryptjs");
+const YahooFinance = require("yahoo-finance2").default;
+const yahooFinance = new YahooFinance();
+
+const marketStocks = [
+    "TCS.NS",
+    "RELIANCE.NS",
+    "INFY.NS",
+    "HDFCBANK.NS",
+    "ICICIBANK.NS",
+    "SBIN.NS",
+    "BHARTIARTL.NS",
+    "ITC.NS",
+    "WIPRO.NS",
+    "TITAN.NS"
+];
 
 router.get("/register", (req,res) => {
     res.render("users/register");
@@ -64,6 +79,32 @@ router.get("/dashboard", async (req, res) => {
     })
     .sort({ createdAt: -1 })
     .limit(5);
+    const marketData = [];
+    for (const symbol of marketStocks) {
+        try {
+            const stock = await yahooFinance.quote(symbol);
+            marketData.push({
+                symbol,
+                changePercent: stock.regularMarketChangePercent || 0
+            });
+        } catch (err) {
+            console.log(
+                `Failed: ${symbol}`
+            );
+        }
+    }
+    const gainers = [...marketData]
+            .sort((a, b) =>
+                b.changePercent -
+                a.changePercent
+            )
+            .slice(0, 3);
+    const losers = [...marketData]
+            .sort((a, b) =>
+                a.changePercent -
+                b.changePercent
+            )
+            .slice(0, 3);
     const portfolioValue = investments.reduce(
         (sum, inv) => sum + inv.quantity * inv.buyPrice,
         0
@@ -73,7 +114,9 @@ router.get("/dashboard", async (req, res) => {
         walletBalance: user.walletBalance,
         portfolioValue,
         watchlistCount: watchlist.length,
-        recentTransactions
+        recentTransactions,
+        gainers,
+        losers
     });
 });
 

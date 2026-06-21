@@ -42,13 +42,22 @@ router.get("/portfolio", isLoggedIn, async (req, res) => {
                 sum + inv.quantity,
             0
         );
+    const chartLabels = investments.map(
+        inv => inv.stockName
+    );
+
+    const chartData = investments.map(
+        inv => inv.currentValue
+    );
     res.render("portfolio/index", {
         investments,
         totalHoldings,
         totalShares,
         totalInvested,
         totalCurrentValue,
-        totalPnL
+        totalPnL,
+        chartLabels,
+        chartData
     });
 });
 

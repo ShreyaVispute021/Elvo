@@ -75,6 +75,15 @@
         </div>
     </div>
 </div>
+<div class="card shadow border-0 rounded-4 mb-4">
+    <div class="card-body">
+        <h4 class="fw-bold mb-3">
+            Portfolio Allocation
+        </h4>
+
+        <canvas id="portfolioChart" height="300"></canvas>
+    </div>
+</div>
     <% if(investments.length === 0) { %>
     <div class="card shadow border-0 rounded-4">
         <div class="card-body text-center py-5">
@@ -149,3 +158,38 @@
     </div>
     <% } %>
 </div>
+
+<!-- <script>
+const ctx =
+document.getElementById(
+    "portfolioChart"
+);
+new Chart(ctx, {
+    type: "pie",
+    data: {
+        labels:
+            <%- JSON.stringify(chartLabels) %>,
+        datasets: [{
+            data:
+                <%- JSON.stringify(chartData) %>
+        }]
+    }
+});
+</script> -->
+
+<script>
+console.log("Labels:", <%- JSON.stringify(chartLabels) %>);
+console.log("Data:", <%- JSON.stringify(chartData) %>);
+
+const ctx = document.getElementById("portfolioChart");
+
+new Chart(ctx, {
+    type: "pie",
+    data: {
+        labels: <%- JSON.stringify(chartLabels) %>,
+        datasets: [{
+            data: <%- JSON.stringify(chartData) %>
+        }]
+    }
+});
+</script>
