@@ -38,30 +38,42 @@ router.get("/stocks/search", (req, res) => {
 
 router.get("/stocks/result", async (req, res) => {
     try {
-        // const searchTerm = req.query.symbol.trim().toUpperCase();
-        // const symbol = stockMap[searchTerm] || searchTerm + ".NS";
-        let input = req.query.symbol.trim().toUpperCase();
-        let symbol = stockMap[input];
-        if (!symbol) {
-            symbol = input + ".NS";
+        const input = req.query.symbol.trim();
+        const searchResult = await yahooFinance.search(input);
+        console.log(searchResult.quotes);
+        const stockMatch = searchResult.quotes.find(
+                q =>
+                    q.exchange === "NSI" &&
+                    q.quoteType === "EQUITY"
+            );
+        if (!stockMatch) {
+            return res.send("Stock not found");
         }
-        console.log("User Input:", input);
-console.log("Yahoo Symbol:", symbol);
+        const symbol = stockMatch.symbol;
+        console.log("Found:", symbol);
         const stock = await yahooFinance.quote(symbol);
-        const chart =
-            await yahooFinance.chart(symbol, {
-                period1: "2026-05-01",
-                period2: "2026-06-19",
-                interval: "1d"
-            });
-        const prices = chart.quotes.map(q => q.close);
-        const dates = chart.quotes.map(q => new Date(q.date).toLocaleDateString() );
+        if (!stock) {
+            return res.send("Stock not found");
+        }
+        const chart = await yahooFinance.chart(symbol, {
+            period1: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            period2: new Date(),
+            interval: "1d"
+        });
+        const chartData = chart.quotes.map(q => ({
+            x: new Date(q.date).getTime(),
+            o: q.open,
+            h: q.high,
+            l: q.low,
+            c: q.close
+        }));
+        console.log("Chart Quotes:", chart.quotes.length);
+        console.log(chartData.slice(0, 5));
         res.render("stocks/show", {
             stock,
-            prices,
-            dates
+            chartData
         });
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         res.send("Stock not found");
     }
@@ -183,6 +195,28 @@ router.post("/stocks/:id/sell", async (req, res) => {
     } catch (err) {
         console.log(err);
         res.send("Sell Failed");
+    }
+});
+
+router.get("/test-search", async (req, res) => {
+    console.log("TEST ROUTE HIT");
+
+    try {
+        console.log(typeof yahooFinance.search);
+
+        const result =
+            await yahooFinance.search(
+                "Tata Motors"
+            );
+
+        console.log(result);
+
+        res.send("Success");
+    } catch(err) {
+        console.log("ERROR:");
+        console.log(err);
+
+        res.send("Error");
     }
 });
 

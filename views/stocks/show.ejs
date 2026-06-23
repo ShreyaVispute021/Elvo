@@ -1,5 +1,9 @@
 <% layout("/layouts/boilerplate") %>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/luxon@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.1.1"></script>
 <div class="card-body p-5">
     <h1 class="fw-bold">
         <%= stock.longName %>
@@ -53,22 +57,31 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    const labels = <%- JSON.stringify(dates) %>;
-    const data = <%- JSON.stringify(prices) %>;
-    new Chart(
-        document.getElementById("stockChart"), {
-            type: "line",
-            data: {
-                labels,
-                datasets: [{
-                    label: "Stock Price",
-                    data,
-                    tension: 0.4,
-                    fill: false
-                }]
+const data = <%- JSON.stringify(chartData) %>;
+console.log("chartData =", data);
+console.log("Chart =", Chart);
+new Chart(
+    document.getElementById("stockChart"),
+    {
+        type: "candlestick",
+        data: {
+            datasets: [{
+                label: "Price",
+                data: data
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: "time",
+                    time: {
+                        unit: "day"
+                    }
+                }
             }
         }
-    );
+    }
+);
 </script>
