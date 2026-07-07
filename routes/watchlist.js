@@ -14,7 +14,7 @@ router.get("/watchlist", isLoggedIn, async(req, res) => {
 });
 
 router.get("/watchlist/new", isLoggedIn, (req, res) => {
-    res.render("/watchlist/new");
+    res.render("watchlist/new");
 });
 
 router.post("/watchlist", isLoggedIn, async(req, res) => {

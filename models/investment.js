@@ -5,6 +5,14 @@ const investmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    symbol: {
+        type: String,
+        required: true
+    },
+    sector: {
+        type: String,
+        default: "Unknown"
+    },
     quantity: {
         type: Number,
         required: true
@@ -15,7 +23,8 @@ const investmentSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     createdAt: {
         type: Date,

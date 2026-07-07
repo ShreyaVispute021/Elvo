@@ -11,12 +11,18 @@ const watchlistSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     createdAt: {
         type: Date,
         default: Date.now
     }
+});
+
+watchlistSchema.index({
+    user: 1,
+    symbol: 1
 });
 
 module.exports = mongoose.model("Watchlist", watchlistSchema);
