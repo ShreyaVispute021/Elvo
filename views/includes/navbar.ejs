@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+<!-- <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
     <div class="container">
         <a class="navbar-brand fw-bold fs-3 text-primary" href="/">Elvo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -47,6 +47,108 @@
                     </li>
                 <% } %>
             </ul>
+        </div>
+    </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3 text-primary" href="/">
+            Elvo
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <!-- Center Links -->
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/stocks/search">Markets</a>
+                </li>
+
+                <% if(currentUser) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/portfolio">Portfolio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/watchlist">Watchlist</a>
+                    </li>
+                <% } %>
+            </ul>
+
+            <% if(currentUser) { %>
+
+                <!-- Search Bar -->
+                <form
+                    class="d-flex me-3"
+                    action="/stocks/result"
+                    method="GET"
+                >
+                    <input
+                        class="form-control"
+                        type="search"
+                        name="symbol"
+                        placeholder="Search stock..."
+                    >
+                </form>
+
+                <!-- User Dropdown -->
+                <div class="dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        data-bs-toggle="dropdown"
+                    >
+                        <i class="bi bi-person-circle"></i>
+                        <%= currentUser %>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="/transactions">
+                                Transactions
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="/about">
+                                About
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-danger" href="/logout">
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            <% } else { %>
+
+                <a class="btn btn-outline-primary me-2" href="/login">
+                    Login
+                </a>
+
+                <a class="btn btn-primary" href="/register">
+                    Register
+                </a>
+
+            <% } %>
+
         </div>
     </div>
 </nav>

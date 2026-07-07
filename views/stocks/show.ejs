@@ -54,34 +54,41 @@
             <a href="/<%= stock.symbol %>/buy" class="btn btn-success btn-lg">
                 Buy Stock
             </a>
+            <form action="/watchlist/add" method="POST">
+                <input type="hidden" name="symbol" value="<%= stock.symbol %>">
+
+                <input type="hidden" name="companyName" value="<%= stock.longName %>">
+                <button type="submit" class="btn btn-warning">
+                    Add to Watchlist
+                </button>
+            </form>
         </div>
     </div>
 </div>
 
 <script>
 const data = <%- JSON.stringify(chartData) %>;
-console.log("chartData =", data);
-console.log("Chart =", Chart);
-new Chart(
-    document.getElementById("stockChart"),
-    {
-        type: "candlestick",
-        data: {
-            datasets: [{
-                label: "Price",
-                data: data
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    type: "time",
-                    time: {
-                        unit: "day"
-                    }
+
+const ctx = document.getElementById("stockChart");
+
+new Chart(ctx, {
+    type: "candlestick",
+    data: {
+        datasets: [{
+            label: "Price",
+            data: data
+        }]
+    },
+    options: {
+        parsing: false,
+        scales: {
+            x: {
+                type: "time",
+                time: {
+                    unit: "day"
                 }
             }
         }
     }
-);
+});
 </script>

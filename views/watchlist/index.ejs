@@ -1,0 +1,27 @@
+<h2>My Watchlist</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Price</th>
+            <th>Change</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <% stocks.forEach(stock => { %>
+        <tr>
+            <td>
+                <%= stock.symbol %>
+            </td>
+            <td>
+                ₹<%= stock.regularMarketPrice %>
+            </td>
+            <td>
+                <%= stock.regularMarketChangePercent.toFixed(2) %>%
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
