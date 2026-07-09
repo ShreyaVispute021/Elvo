@@ -54,7 +54,7 @@
             <a href="/<%= stock.symbol %>/buy" class="btn btn-success btn-lg">
                 Buy Stock
             </a>
-            <form action="/watchlist/add" method="POST">
+            <form action="/watchlist" method="POST">
                 <input type="hidden" name="symbol" value="<%= stock.symbol %>">
 
                 <input type="hidden" name="companyName" value="<%= stock.longName %>">

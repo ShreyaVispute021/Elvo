@@ -1,33 +1,34 @@
 const express = require("express");
+
 const router = express.Router();
 
-const watchlist = require("../models/watchlist");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn } =
+    require("../middleware");
 
-router.get("/watchlist", isLoggedIn, async(req, res) => {
-    const stocks = await watchlist.find({
-        user: req.session.userId
-    });
-    res.render("watchlist/index", {
-        stocks
-    });
-});
+const watchlistController =
+    require("../controllers/watchlistController");
 
-router.get("/watchlist/new", isLoggedIn, (req, res) => {
-    res.render("watchlist/new");
-});
+router
+    .route("/watchlist")
+    .get(
+        isLoggedIn,
+        watchlistController.showWatchlist
+    )
+    .post(
+        isLoggedIn,
+        watchlistController.addToWatchlist
+    );
 
-router.post("/watchlist", isLoggedIn, async(req, res) => {
-    const { symbol, companyName } = req.body;
-    const stock = new watchlist({
-        symbol,
-        companyName,
-        user: req.session.userId
-    });
-    await stock.save();
-    res.redirect("/watchlist");
-});
+router.get(
+    "/watchlist/new",
+    isLoggedIn,
+    watchlistController.showNewWatchlist
+);
 
-
+router.delete(
+    "/watchlist/:id",
+    isLoggedIn,
+    watchlistController.deleteWatchlist
+);
 
 module.exports = router;

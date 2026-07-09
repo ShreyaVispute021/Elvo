@@ -1,35 +1,44 @@
 const mongoose = require("mongoose");
 
 const investmentSchema = new mongoose.Schema({
+
     stockName: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        uppercase: true
     },
-    symbol: {
+
+    companyName: {
         type: String,
-        required: true
+        default: ""
     },
+
+    quantity: {
+        type: Number,
+        required: true,
+        min: 1
+    },
+
+    buyPrice: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+
     sector: {
         type: String,
         default: "Unknown"
     },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    buyPrice: {
-        type: Number,
-        required: true
-    },
+
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
+
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model("Investment", investmentSchema);

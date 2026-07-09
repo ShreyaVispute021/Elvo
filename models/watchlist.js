@@ -1,28 +1,39 @@
 const mongoose = require("mongoose");
 
 const watchlistSchema = new mongoose.Schema({
+
     symbol: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true,
+        trim: true
     },
+
     companyName: {
         type: String,
         required: true
     },
+
+    sector: {
+        type: String,
+        default: ""
+    },
+
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
+
+}, {
+    timestamps: true
 });
 
 watchlistSchema.index({
-    user: 1,
-    symbol: 1
+    symbol: 1,
+    user: 1
+}, {
+    unique: true
 });
 
 module.exports = mongoose.model("Watchlist", watchlistSchema);
