@@ -9,7 +9,7 @@ const methodOverride = require("method-override");
 const helmet = require("helmet");
 const compression = require("compression");
 const morgan = require("morgan");
-const MongoStore = require("connect-mongo");
+const { MongoStore } = require("connect-mongo");
 const app = express();
 
 const userRouter = require("./routes/user");

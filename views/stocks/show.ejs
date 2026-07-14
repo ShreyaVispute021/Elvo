@@ -4,73 +4,199 @@
 <script src="https://cdn.jsdelivr.net/npm/luxon@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.1.1"></script>
-<div class="card-body p-5">
-    <h1 class="fw-bold">
-        <%= stock.longName %>
-    </h1>
-    <h2 class="text-success">
-        ₹<%= stock.regularMarketPrice %>
-    </h2>
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <p>
-                <strong>Day Change:</strong>
-                <%= stock.regularMarketChangePercent.toFixed(2) %>%
-            </p>
-            <p>
-                <strong>Previous Close:</strong>
-                ₹<%= stock.regularMarketPreviousClose %>
-            </p>
-            <p>
-                <strong>Market:</strong>
-                <%= stock.fullExchangeName %>
-            </p>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <strong>52 Week High:</strong>
-                ₹<%= stock.fiftyTwoWeekHigh %>
-            </p>
-            <p>
-                <strong>52 Week Low:</strong>
-                ₹<%= stock.fiftyTwoWeekLow %>
-            </p>
-            <p>
-                <strong>P/E Ratio:</strong>
-                <%= stock.trailingPE %>
-            </p>
-        </div>
-        <div class="card shadow-lg border-0 rounded-4 mt-4">
-            <div class="card-body">
-                <h4 class="mb-4">
-                    Price History
-                </h4>
 
-                <canvas id="stockChart"></canvas>
+<div class="container py-5">
+
+    <!-- Hero Section -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body p-5">
+
+            <div class="d-flex justify-content-between align-items-start flex-wrap">
+
+                <div>
+                    <h1 class="fw-bold mb-2">
+                        <%= stock.longName %>
+                    </h1>
+
+                    <div class="d-flex align-items-center gap-2 mb-3">
+
+                        <span class="badge bg-dark fs-6">
+                            <%= stock.symbol.replace(".NS","") %>
+                        </span>
+
+                        <span class="badge bg-primary">
+                            <%= stock.fullExchangeName %>
+                        </span>
+
+                    </div>
+
+                    <h2 class="<%= stock.regularMarketChange >= 0 ? 'text-success' : 'text-danger' %> fw-bold">
+
+                        ₹<%= stock.regularMarketPrice %>
+
+                    </h2>
+
+                    <p class="<%= stock.regularMarketChange >= 0 ? 'text-success' : 'text-danger' %>">
+
+                        <%= stock.regularMarketChange >= 0 ? '+' : '' %>
+                        <%= stock.regularMarketChangePercent.toFixed(2) %>%
+
+                        Today
+
+                    </p>
+
+                </div>
+
+                <div class="d-flex gap-2 mt-3 mt-md-0">
+
+                    <a href="/<%= stock.symbol %>/buy"
+                       class="btn btn-success btn-lg">
+
+                        <i class="bi bi-cart-fill"></i>
+                        Buy
+
+                    </a>
+
+                    <form action="/watchlist" method="POST">
+
+                        <input
+                            type="hidden"
+                            name="symbol"
+                            value="<%= stock.symbol %>">
+
+                        <input
+                            type="hidden"
+                            name="companyName"
+                            value="<%= stock.longName %>">
+
+                        <button
+                            class="btn btn-warning btn-lg">
+
+                            <i class="bi bi-star-fill"></i>
+
+                            Watchlist
+
+                        </button>
+
+                    </form>
+
+                </div>
+
             </div>
-        </div>
-        </div>
-            <a href="/<%= stock.symbol %>/buy" class="btn btn-success btn-lg">
-                Buy Stock
-            </a>
-            <form action="/watchlist" method="POST">
-                <input type="hidden" name="symbol" value="<%= stock.symbol %>">
 
-                <input type="hidden" name="companyName" value="<%= stock.longName %>">
-                <button type="submit" class="btn btn-warning">
-                    Add to Watchlist
-                </button>
-            </form>
         </div>
     </div>
+
+
+    <div class="row g-4">
+
+        <!-- Chart -->
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow rounded-4 h-100">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold mb-4">
+
+                        Price History
+
+                    </h4>
+
+                    <canvas id="stockChart" height="120"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Stats -->
+
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow rounded-4">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold mb-4">
+
+                        Market Statistics
+
+                    </h4>
+
+                    <div class="stock-stat">
+
+                        <span>Previous Close</span>
+
+                        <strong>
+                            ₹<%= stock.regularMarketPreviousClose %>
+                        </strong>
+
+                    </div>
+
+                    <div class="stock-stat">
+
+                        <span>52 Week High</span>
+
+                        <strong>
+                            ₹<%= stock.fiftyTwoWeekHigh %>
+                        </strong>
+
+                    </div>
+
+                    <div class="stock-stat">
+
+                        <span>52 Week Low</span>
+
+                        <strong>
+                            ₹<%= stock.fiftyTwoWeekLow %>
+                        </strong>
+
+                    </div>
+
+                    <div class="stock-stat">
+
+                        <span>P/E Ratio</span>
+
+                        <strong>
+
+                            <%= stock.trailingPE || "N/A" %>
+
+                        </strong>
+
+                    </div>
+
+                    <div class="stock-stat">
+
+                        <span>Exchange</span>
+
+                        <strong>
+
+                            <%= stock.fullExchangeName %>
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <script>
 const data = <%- JSON.stringify(chartData) %>;
 
-const ctx = document.getElementById("stockChart");
-
+console.log("Chart Data:", data);
+console.log("First Item:", data[0]);
+console.log("Array:", Array.isArray(data));
+console.log("Canvas:", document.getElementById("stockChart"));
 new Chart(ctx, {
     type: "candlestick",
     data: {

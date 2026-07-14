@@ -1,0 +1,802 @@
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+.dashboard-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+}
+
+.dashboard-tag{
+
+    display:inline-block;
+
+    background:rgba(99,102,241,.15);
+
+    color:var(--primary);
+
+    border:1px solid rgba(99,102,241,.3);
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+
+.dashboard-title{
+
+    font-size:2.7rem;
+
+    font-weight:800;
+
+    color:var(--text);
+
+}
+
+.dashboard-subtitle{
+
+    color:var(--text-muted);
+
+    max-width:650px;
+
+    margin-top:10px;
+
+}
+
+.market-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:var(--success);
+
+    font-weight:600;
+
+}
+
+.market-dot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:var(--success);
+
+    box-shadow:0 0 12px var(--success);
+
+}
+
+.card-label{
+
+    color:rgba(255,255,255,.7);
+
+    font-size:.9rem;
+
+}
+
+.quick-action{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    color:var(--text);
+
+    transition:.3s;
+
+    text-decoration:none;
+
+}
+
+.quick-action:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow-lg);
+
+    color:var(--primary);
+
+}
+
+.quick-action i{
+
+    font-size:2rem;
+
+}
+
+/* ==========================================
+   Dashboard Stat Cards
+========================================== */
+
+.dashboard-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    padding:30px;
+
+    min-height:210px;
+
+    color:white;
+
+    transition:.35s;
+
+}
+
+.dashboard-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-60px;
+
+    right:-60px;
+
+    width:160px;
+
+    height:160px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.dashboard-card h2{
+
+    font-size:2.1rem;
+
+    font-weight:800;
+
+    margin-top:15px;
+
+}
+
+.card-icon{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:20px;
+
+}
+
+.card-icon i{
+
+    font-size:1.6rem;
+
+}
+
+.card-footer-text{
+
+    display:block;
+
+    margin-top:20px;
+
+    opacity:.8;
+
+    font-size:.9rem;
+
+}
+
+.portfolio-card{
+
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+
+}
+
+.wallet-card{
+
+    background:linear-gradient(135deg,#059669,#22C55E);
+
+}
+
+.watchlist-card{
+
+    background:linear-gradient(135deg,#7C3AED,#A855F7);
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+/* ===============================
+   Dashboard Statistics
+================================ */
+
+.stats-grid{
+    margin-top:2rem;
+}
+
+.stat-card{
+    position:relative;
+    overflow:hidden;
+
+    background:var(--surface);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:20px;
+
+    padding:1.6rem;
+
+    transition:.3s ease;
+    height:100%;
+}
+
+.stat-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        135deg,
+        rgba(99,102,241,.08),
+        transparent 55%
+    );
+
+    opacity:0;
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(99,102,241,.25);
+
+    box-shadow:
+    0 18px 45px rgba(0,0,0,.35);
+}
+
+.stat-card:hover::before{
+    opacity:1;
+}
+
+.stat-icon{
+    width:64px;
+    height:64px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:18px;
+
+    font-size:1.7rem;
+    margin-bottom:1.3rem;
+
+    color:white;
+}
+
+.icon-blue{
+    background:linear-gradient(135deg,#6366F1,#4F46E5);
+}
+
+.icon-green{
+    background:linear-gradient(135deg,#22C55E,#16A34A);
+}
+
+.icon-cyan{
+    background:linear-gradient(135deg,#06B6D4,#0891B2);
+}
+
+.icon-orange{
+    background:linear-gradient(135deg,#F97316,#EA580C);
+}
+
+.stat-label{
+    color:var(--text-muted);
+    font-size:.9rem;
+    margin-bottom:.35rem;
+}
+
+.stat-value{
+    color:white;
+    font-size:2rem;
+    font-weight:700;
+}
+
+.stat-change{
+    margin-top:.8rem;
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+
+    color:#22C55E;
+    font-size:.88rem;
+}
+
+.stat-change.negative{
+    color:#EF4444;
+}
+
+/* ===============================
+   Recent Transactions
+================================ */
+
+.section-card{
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 24px;
+    padding: 1.8rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+
+    font-size:1.35rem;
+    font-weight:700;
+
+    color:var(--text-primary);
+
+    margin-bottom:1.5rem;
+}
+
+.section-title i{
+    color:var(--primary);
+    font-size:1.4rem;
+}
+
+.transaction-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:1rem 1.2rem;
+    margin-bottom:.8rem;
+
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.05);
+    border-radius:16px;
+
+    transition:.25s ease;
+}
+
+.transaction-item:hover{
+    transform:translateX(6px);
+    border-color:rgba(99,102,241,.25);
+    background:rgba(99,102,241,.08);
+}
+
+.transaction-left{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+}
+
+.transaction-icon{
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    font-size:1.1rem;
+}
+
+.buy-icon{
+    background:linear-gradient(135deg,#22C55E,#16A34A);
+}
+
+.sell-icon{
+    background:linear-gradient(135deg,#EF4444,#DC2626);
+}
+
+.transaction-stock{
+    font-weight:600;
+    color:white;
+}
+
+.transaction-type{
+    color:var(--text-muted);
+    font-size:.9rem;
+}
+
+.transaction-right{
+    text-align:right;
+}
+
+.transaction-price{
+    font-weight:700;
+    color:white;
+}
+
+.transaction-qty{
+    color:var(--text-muted);
+    font-size:.9rem;
+}
+
+.empty-state{
+    text-align:center;
+    padding:3rem 0;
+    color:var(--text-muted);
+}
+
+.empty-state i{
+    font-size:3rem;
+    margin-bottom:1rem;
+    display:block;
+    opacity:.5;
+}
+
+/* ===============================
+   Market Movers
+================================ */
+
+.market-card{
+    background:var(--surface);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:24px;
+    padding:1.8rem;
+    height:100%;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+.market-title{
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+
+    font-size:1.25rem;
+    font-weight:700;
+
+    margin-bottom:1.5rem;
+}
+
+.market-title.gainers{
+    color:#22C55E;
+}
+
+.market-title.losers{
+    color:#EF4444;
+}
+
+.market-stock{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:.9rem 1rem;
+    margin-bottom:.8rem;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.03);
+
+    transition:.25s;
+}
+
+.market-stock:hover{
+
+    transform:translateX(6px);
+
+    background:rgba(255,255,255,.06);
+}
+
+.stock-left{
+
+    display:flex;
+    align-items:center;
+    gap:.8rem;
+}
+
+.stock-avatar{
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:700;
+
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+}
+
+.stock-symbol{
+
+    font-weight:600;
+    color:white;
+}
+
+.change-pill{
+
+    padding:.35rem .8rem;
+
+    border-radius:999px;
+
+    font-size:.9rem;
+    font-weight:600;
+}
+
+.change-positive{
+
+    color:#22C55E;
+
+    background:rgba(34,197,94,.12);
+}
+
+.change-negative{
+
+    color:#EF4444;
+
+    background:rgba(239,68,68,.12);
+}
+
+/* ===============================
+   Quick Actions
+================================ */
+
+.quick-actions-card{
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 24px;
+    padding: 1.8rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+
+.quick-actions-grid{
+    margin-top: 1rem;
+}
+
+.action-tile{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    text-decoration:none;
+
+    padding:1.2rem 1.3rem;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    transition:.25s ease;
+
+    color:inherit;
+}
+
+.action-tile:hover{
+
+    transform:translateY(-5px);
+
+    background:rgba(99,102,241,.08);
+
+    border-color:rgba(99,102,241,.25);
+
+    text-decoration:none;
+}
+
+.action-left{
+
+    display:flex;
+    align-items:center;
+
+    gap:1rem;
+}
+
+.action-icon{
+
+    width:52px;
+    height:52px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    font-size:1.3rem;
+}
+
+.action-title{
+
+    color:white;
+
+    font-weight:600;
+}
+
+.action-subtitle{
+
+    color:var(--text-muted);
+
+    font-size:.9rem;
+}
+
+.action-arrow{
+
+    color:var(--text-muted);
+
+    font-size:1.2rem;
+
+    transition:.25s;
+}
+
+.action-tile:hover .action-arrow{
+
+    transform:translateX(6px);
+
+    color:white;
+}
+
+/* ==========================
+   Portfolio Chart
+========================== */
+
+.portfolio-chart-card{
+
+    margin-top:2rem;
+
+    background:var(--surface);
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    padding:2rem;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+}
+
+.chart-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:2rem;
+
+}
+
+.chart-header h4{
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+.chart-header small{
+
+    color:var(--text-muted);
+
+}
+
+.live-badge{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.5rem;
+
+    color:#22C55E;
+
+    font-size:.9rem;
+
+}
+
+.live-dot{
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:#22C55E;
+
+}
+
+.chart-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:1.5rem;
+
+}
+
+.chart-stat{
+
+    text-align:center;
+
+    padding:1rem;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.03);
+
+}
+
+.chart-stat small{
+
+    color:var(--text-muted);
+
+}
+
+.chart-stat h5{
+
+    color:white;
+
+    margin-top:.5rem;
+
+}

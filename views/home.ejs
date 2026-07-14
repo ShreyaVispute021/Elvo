@@ -1,87 +1,257 @@
 <% layout("/layouts/boilerplate") %>
 
-<section class="container hero-section text-center my-5">
+<!-- HERO -->
 
-    <span class="badge bg-primary-subtle text-primary px-3 py-2 mb-3">
-        Smart Investing Platform
-    </span>
+<section class="hero-section">
 
-    <h1 class="display-2 fw-bold">
-        Build Wealth with
-        <span class="text-primary">
-            Confidence.
-        </span>
-    </h1>
-
-    <p class="lead text-muted mt-3 mx-auto" style="max-width:700px;">
-        Analyze stocks, manage portfolios, and practice investing through paper trading.
-    </p>
-
-    <div class="mt-4">
-        <a href="/register" class="btn btn-primary btn-lg me-2">
-            Get Started
-        </a>
-
-        <a href="/about" class="btn btn-outline-dark btn-lg">
-            Learn More
-        </a>
-    </div>
-
-</section>
-<section class="container py-5">
-    <div class="row text-center">
-
-        <div class="col-md-4">
-            <div class="card shadow feature-card h-100">
-                <div class="card-body">
-                    <i class="bi bi-briefcase-fill display-4 text-primary mb-3"></i>
-                    <h4>Portfolio Tracking</h4>
-                    <p>Track all your investments in one place.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow feature-card h-100">
-                <div class="card-body">
-                    <i class="bi bi-eye-fill display-4 text-primary mb-3"></i>
-                    <h4>Watchlist</h4>
-                    <p>Keep an eye on stocks before investing.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow feature-card h-100">
-                <div class="card-body">
-                    <i class="bi bi-graph-up-arrow display-4 text-primary mb-3"></i>
-                    <h4>Analytics</h4>
-                    <p>Visualize your portfolio using charts.</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-<section class="bg-light py-5">
     <div class="container">
-        <div class="row text-center">
 
-            <div class="col-md-4">
-                <h2>10K+</h2>
-                <p>Investors</p>
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+
+                <span class="hero-badge">
+                    🚀 Next Generation Paper Trading
+                </span>
+
+                <h1 class="hero-title mt-4">
+                    Invest Smarter.
+                    <br>
+                    Trade Without Risk.
+                </h1>
+
+                <p class="hero-description mt-4">
+
+                    Experience realistic paper trading,
+                    portfolio analytics,
+                    watchlists,
+                    and intelligent investment insights —
+                    all in one modern platform.
+
+                </p>
+
+                <div class="mt-5">
+
+                    <a href="/register"
+                       class="btn btn-primary btn-lg me-3">
+
+                        Start Investing
+
+                    </a>
+
+                    <a href="/stocks/search"
+                       class="btn btn-outline-primary btn-lg">
+
+                        Explore Markets
+
+                    </a>
+
+                </div>
+
             </div>
 
-            <div class="col-md-4">
-                <h2>500+</h2>
-                <p>Stocks Tracked</p>
-            </div>
+            <div class="col-lg-6">
 
-            <div class="col-md-4">
-                <h2>99.9%</h2>
-                <p>Uptime</p>
+                <div class="hero-dashboard">
+
+                    <div class="dashboard-header">
+
+                        <h5>
+                            Portfolio Overview
+                        </h5>
+
+                        <span class="profit">
+                            ▲ +12.48%
+                        </span>
+
+                    </div>
+
+                    <div class="portfolio-value">
+
+                        ₹12,48,520
+
+                    </div>
+
+                    <div class="row mt-4">
+
+                        <div class="col-6">
+
+                            <div class="mini-card">
+
+                                <small>Virtual Wallet</small>
+
+                                <h4>₹10L</h4>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="mini-card">
+
+                                <small>Watchlist</small>
+
+                                <h4>24 Stocks</h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-placeholder mt-4">
+
+                        📈 Portfolio Performance
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
+
     </div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold">
+
+            Everything You Need
+
+        </h2>
+
+        <p>
+
+            Professional tools for smarter investing.
+
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-wallet2 display-5"></i>
+
+                <h5 class="mt-3">
+                    Paper Trading
+                </h5>
+
+                <p>
+                    Practice investing without risking money.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-bar-chart-line display-5"></i>
+
+                <h5 class="mt-3">
+                    Portfolio Analytics
+                </h5>
+
+                <p>
+                    Track profits, losses and allocations.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-eye display-5"></i>
+
+                <h5 class="mt-3">
+                    Watchlist
+                </h5>
+
+                <p>
+                    Monitor your favorite stocks.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-graph-up-arrow display-5"></i>
+
+                <h5 class="mt-3">
+                    Live Market
+                </h5>
+
+                <p>
+                    Explore real-time stock information.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="container pb-5">
+
+    <div class="stats-box">
+
+        <div>
+
+            <h2>500+</h2>
+
+            <p>NSE Stocks</p>
+
+        </div>
+
+        <div>
+
+            <h2>₹10L</h2>
+
+            <p>Virtual Capital</p>
+
+        </div>
+
+        <div>
+
+            <h2>24×7</h2>
+
+            <p>Portfolio Access</p>
+
+        </div>
+
+        <div>
+
+            <h2>100%</h2>
+
+            <p>Risk Free Learning</p>
+
+        </div>
+
+    </div>
+
 </section>

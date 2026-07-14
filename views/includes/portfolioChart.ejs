@@ -1,0 +1,53 @@
+<div class="portfolio-chart-card mt-5">
+
+    <div class="chart-header">
+
+        <div>
+            <h4>Portfolio Performance</h4>
+            <small>Portfolio value over time</small>
+        </div>
+
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            Live
+        </div>
+
+    </div>
+
+    <canvas id="portfolioChart" height="120"></canvas>
+
+    <div class="chart-stats mt-4">
+
+    <div class="chart-stat">
+        <small>Invested</small>
+
+        <h5>
+            ₹<%= portfolio.totalInvested.toLocaleString() %>
+        </h5>
+    </div>
+
+    <div class="chart-stat">
+        <small>Holdings</small>
+
+        <h5>
+            <%= portfolio.totalHoldings %>
+        </h5>
+    </div>
+
+    <div class="chart-stat">
+        <small>P/L</small>
+
+        <h5 class="<%= portfolio.totalPnL >= 0 ? 'text-success' : 'text-danger' %>">
+            ₹<%= portfolio.totalPnL.toLocaleString() %>
+        </h5>
+    </div>
+
+</div>
+
+</div>
+<script>
+window.portfolioChartData = {
+    labels: <%- JSON.stringify(portfolio.chartLabels) %>,
+    data: <%- JSON.stringify(portfolio.chartData) %>
+};
+</script>

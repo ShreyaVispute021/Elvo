@@ -1,82 +1,115 @@
 <% layout("/layouts/boilerplate") %>
 <div class="container py-5">
-    <div class="mb-5">
-        <h1 class="fw-bold">
-            Welcome back, <%= username %> 👋
-        </h1>
-        <p class="text-muted">
-            Track your investments and grow your virtual portfolio.
-        </p>
+    <div class="dashboard-header mb-5">
+        <div>
+            <span class="dashboard-tag">
+                Dashboard
+            </span>
+            <h1 class="dashboard-title mt-3">
+                Good to see you,
+                <%= username %> 👋
+            </h1>
+            <p class="dashboard-subtitle">
+                Monitor your investments,
+                paper trades,
+                and market performance
+                from one place.
+            </p>
+        </div>
+        <div class="market-status">
+            <span class="market-dot"></span>
+            Market Data Live
+        </div>
     </div>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card dashboard-card portfolio-card">
-                <div class="card-body p-4">
-                    <small class="text-muted">
-                        Portfolio Value
-                    </small>
-                    <h2 class="fw-bold mt-2">
-                        ₹<%= portfolioValue.toLocaleString() %>
-                    </h2>
+    <div class="row g-4 mb-5">
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card portfolio-card">
+                <div class="card-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
                 </div>
+                <small class="card-label">
+                    Portfolio Value
+                </small>
+                <h2>
+                    ₹<%= portfolioValue.toLocaleString() %>
+                </h2>
+                <span class="card-footer-text">
+                    Total Current Value
+                </span>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card dashboard-card wallet-card">
-                <div class="card-body p-4">
-                    <small class="text-muted">
-                        Wallet Balance
-                    </small>
-                    <h2 class="fw-bold text-success mt-2">
-                        ₹<%= walletBalance.toLocaleString() %>
-                    </h2>
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card wallet-card">
+                <div class="card-icon">
+                    <i class="bi bi-wallet2"></i>
                 </div>
+                <small class="card-label">
+                    Wallet Balance
+                </small>
+                <h2>
+                    ₹<%= walletBalance.toLocaleString() %>
+                </h2>
+                <span class="card-footer-text">
+                    Available Funds
+                </span>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card dashboard-card watchlist-card">
-                <div class="card-body p-4">
-                    <small class="text-muted">
-                        Watchlist
-                    </small>
-                    <h2 class="fw-bold mt-2">
-                        <%= watchlistCount %> Stocks
-                    </h2>
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card watchlist-card">
+                <div class="card-icon">
+                    <i class="bi bi-star-fill"></i>
                 </div>
+                <small class="card-label">
+                    Watchlist
+                </small>
+                <h2>
+                    <%= watchlistCount %>
+                </h2>
+                <span class="card-footer-text">
+                    Stocks Tracking
+                </span>
             </div>
         </div>
     </div>
     <div class="card border-0 shadow rounded-4 mt-4">
-        <div class="card-body p-4">
-            <h4 class="fw-bold mb-3">
-                Recent Activity
-            </h4>
-            <% if(recentTransactions.length === 0) { %>
-                <p class="text-muted">
-                    No transactions yet.
-                </p>
+        <div class="section-card mt-4">
+            <div class="section-title">
+                <i class="bi bi-clock-history"></i>
+                <span>Recent Transactions</span>
+            </div>
+            <% if(recentTransactions.length === 0){ %>
+                <div class="empty-state">
+                        <i class="bi bi-wallet2"></i>
+                        <h5>No Transactions Yet</h5>
+                        <p>Your paper trades will appear here.</p>
+                </div>
             <% } else { %>
-                <% recentTransactions.forEach(tx => { %>
-                    <div class="d-flex justify-content-between align-items-center border-bottom py-3">
-                        <div>
-                            <% if(tx.type === "BUY") { %>
-                                <span class="badge bg-success me-2">
-                                    BUY
-                                </span>
-                            <% } else { %>
-                                <span class="badge bg-danger me-2">
-                                    SELL
-                                </span>
-                            <% } %>
-                            <strong><%= tx.stockName %></strong>
-                        </div>
-                        <div class="text-end">
+                <% recentTransactions.forEach(tx=>{ %>
+                    <div class="transaction-item">
+                        <div class="transaction-left">
+                            <div class="transaction-icon <%= tx.type === 'BUY' ? 'buy-icon' : 'sell-icon' %>">
+                                <% if(tx.type==="BUY"){ %>
+                                    <i class="bi bi-arrow-down"></i>
+                                <% } else { %>
+                                    <i class="bi bi-arrow-up"></i>
+                                <% } %>
+                            </div>
                             <div>
+                                <div class="transaction-stock">
+                                    <%= tx.stockName %>
+                                </div>
+                                <div class="transaction-type">
+                                    <%= tx.type %> Order
+                                </div>
+                            </div>
+                        </div>
+                        <div class="transaction-right">
+                            <div class="transaction-price">
+                                ₹<%= tx.price.toLocaleString() %>
+                            </div>
+                            <div class="transaction-qty">
                                 <%= tx.quantity %> Shares
                             </div>
-                            <small class="text-muted">
-                                ₹<%= tx.price %>
-                            </small>
                         </div>
                     </div>
                 <% }) %>
@@ -84,61 +117,119 @@
         </div>
     </div>
     <div class="row mt-4">
-    <div class="col-md-6">
-        <div class="card border-0 shadow rounded-4">
-            <div class="card-body p-4">
-                <h4 class="fw-bold text-success mb-3">
-                    📈 Top Gainers
-                </h4>
-                <% gainers.forEach(stock => { %>
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span>
-                            <%= stock.symbol.replace(".NS","") %>
-                        </span>
-                        <span class="text-success fw-bold">
-                            +<%= stock.changePercent.toFixed(2) %>%
-                        </span>
+        <div class="row mt-4 g-4">
+            <div class="col-lg-6">
+                <div class="market-card">
+                    <div class="market-title gainers">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        Top Gainers
                     </div>
-                <% }) %>
+                    <% gainers.forEach(stock=>{ %>
+                        <div class="market-stock">
+                            <div class="stock-left">
+                                <div class="stock-avatar">
+                                    <%= stock.symbol.charAt(0) %>
+                                </div>
+                                <div class="stock-symbol">
+                                    <%= stock.symbol.replace(".NS","") %>
+                                </div>
+                            </div>
+                            <div class="change-pill change-positive">
+                                +<%= stock.changePercent.toFixed(2) %>%
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="market-card">
+                    <div class="market-title losers">
+                        <i class="bi bi-graph-down-arrow"></i>
+                        Top Losers
+                    </div>
+                    <% losers.forEach(stock=>{ %>
+                        <div class="market-stock">
+                            <div class="stock-left">
+                                <div class="stock-avatar">
+                                    <%= stock.symbol.charAt(0) %>
+                                </div>
+                                <div class="stock-symbol">
+                                    <%= stock.symbol.replace(".NS","") %>
+                                </div>
+                            </div>
+                            <div class="change-pill change-negative">
+                                <%= stock.changePercent.toFixed(2) %>%
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card border-0 shadow rounded-4">
-            <div class="card-body p-4">
-                <h4 class="fw-bold text-danger mb-3">
-                    📉 Top Losers
-                </h4>
-                <% losers.forEach(stock => { %>
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <span>
-                            <%= stock.symbol.replace(".NS","") %>
-                        </span>
-                        <span class="text-danger fw-bold">
-                            <%= stock.changePercent.toFixed(2) %>%
-                        </span>
-                    </div>
-                <% }) %>
-            </div>
-        </div>
-    </div>
-</div>
     <div class="card border-0 shadow rounded-4 mt-5">
-        <div class="card-body p-4">
-            <h4 class="fw-bold mb-3">
-                Quick Actions
-            </h4>
-            <div class="d-flex gap-3">
-                <a href="/portfolio/new" class="btn btn-success">
-                    Add Investment
-                </a>
-                <a href="/watchlist/new" class="btn btn-primary">
-                    Add To Watchlist
-                </a>
-                <a href="/transactions" class="btn btn-dark">
-                    Transactions
-                </a>
+        <div class="quick-actions-card mt-5">
+            <div class="section-title">
+                <i class="bi bi-lightning-charge-fill"></i>
+                <span>Quick Actions</span>
+            </div>
+            <div class="row g-3 quick-actions-grid">
+                <div class="col-lg-4">
+                    <a href="/portfolio/new" class="action-tile">
+                        <div class="action-left">
+                            <div class="action-icon">
+                                <i class="bi bi-plus-circle"></i>
+                            </div>
+                            <div>
+                                <div class="action-title">
+                                    Add Investment
+                                </div>
+                                <div class="action-subtitle">
+                                    Build your portfolio
+                                </div>
+                            </div>
+                        </div>
+                        <i class="bi bi-arrow-right action-arrow"></i>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="/watchlist/new" class="action-tile">
+                        <div class="action-left">
+                            <div class="action-icon">
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <div>
+                                <div class="action-title">
+                                    Watchlist
+                                </div>
+                                <div class="action-subtitle">
+                                    Track favourite stocks
+                                </div>
+                            </div>
+                        </div>
+                        <i class="bi bi-arrow-right action-arrow"></i>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="/transactions" class="action-tile">
+                        <div class="action-left">
+                            <div class="action-icon">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div>
+                                <div class="action-title">
+                                    Transactions
+                                </div>
+                                <div class="action-subtitle">
+                                    View trading history
+                                </div>
+                            </div>
+                        </div>
+                        <i class="bi bi-arrow-right action-arrow"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+    <%- include("../includes/portfolioChart") %>
 </div>
+<script src="/js/dashboardChart.js"></script>
